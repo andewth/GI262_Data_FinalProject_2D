@@ -42,9 +42,12 @@ public class MapGenerator : MonoBehaviour
     private Vector2Int exitPos;
     private bool exitPlaced = false;
 
+    private bool exitSpawned = false;
+
     [Range(0, 100)]
     public int exitSpawnChancePercent = 30;
 
+    public static object Instance { get; internal set; }
 
     private void Awake()
     {
@@ -245,8 +248,13 @@ public class MapGenerator : MonoBehaviour
     public void PlaceExit()
     {
         if (exitPrefab == null) return;
+        if (exitSpawned) return;
+
+        if (Random.Range(0, 100) >= exitSpawnChancePercent) return;
 
         int attempts = 0;
+
+        exitSpawned = true;
 
         while (attempts < 150)
         {

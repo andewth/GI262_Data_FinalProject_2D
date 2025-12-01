@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using static EndGame;
 
 
 public class Ninja : Character
 {
     Animator animator;
-    [SerializeField] TextMeshProUGUI healthTxt, appleTxt, cherryTxt;
+    [SerializeField] TextMeshProUGUI healthTxt, damageTxt;
+    // [SerializeField] TextMeshProUGUI healthTxt, appleTxt, cherryTxt, damageTxt;
 
 
     protected int apple = 0;
@@ -28,8 +31,9 @@ public class Ninja : Character
         Damage = 10;
         Health = 100;
         UpdateHelthTxt();
-        UpdateAppleTxt();
-        UpdateCherryTxt();
+        UpdateDamageTxt();
+        // UpdateAppleTxt();
+        // UpdateCherryTxt();
         animator = GetComponent<Animator>();
     }
 
@@ -40,9 +44,9 @@ public class Ninja : Character
         // Keep Apple
         apple += count;
         Health += 20;
-        UpdateAppleTxt();
-        UpdateHelthTxt();
-        Debug.Log($"+ Keep Apple [ Hp : {Health} ]");
+        // UpdateAppleTxt();
+        // UpdateHelthTxt();
+        Debug.Log($"+ Keep Potion 1 [ Hp : {Health} ]");
     }
 
     public void KeepUp(float count)
@@ -50,8 +54,9 @@ public class Ninja : Character
         // Keep Cherry
         cherry += count;
         Damage += 5;
-        UpdateCherryTxt();
-        Debug.Log($"+ Keep Cherry [ Damage : {Damage} ]");
+        UpdateDamageTxt();
+        // UpdateCherryTxt();
+        Debug.Log($"+ Keep Potion 2 [ Damage : {Damage} ]");
     }
 
 
@@ -99,11 +104,11 @@ public class Ninja : Character
     public override void AnimationAttack()
     {
         Attack();
-        // if (!animator.GetCurrentAnimatorStateInfo(0).IsName("NinjaAttack"))
-        // {
-        //     animator.SetTrigger("Attack");
-        //     Attack();
-        // }
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("NinjaAttack"))
+        {
+            animator.SetTrigger("Attack");
+            Attack();
+        }
     }
 
 
@@ -191,7 +196,20 @@ public class Ninja : Character
 
     void UpdateHelthTxt()
     {
-        healthTxt.text = $"{Health}";
+        healthTxt.text = $"Hp : {Health}";
+
+        if (Health <= 0)
+        {
+            Debug.Log("Player Dead!");
+            GameResult.isWin = false;
+            SceneManager.LoadScene("EndGame");
+        }
+    }
+
+
+    void UpdateDamageTxt()
+    {
+        damageTxt.text = $"Damage : {Damage}";
     }
 
 

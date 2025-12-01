@@ -65,6 +65,7 @@ public class Shark : Character, IAttack
         }
     }
 
+    public MapGenerator mapGenerator;
 
     public void Attack()
     {
@@ -79,6 +80,10 @@ public class Shark : Character, IAttack
                 if (ninja.Health <= 0)
                 {
                     Destroy(ninja.gameObject);
+                    if (mapGenerator != null)
+                    {
+                        mapGenerator.PlaceExit();
+                    }
                 }
             }
         }

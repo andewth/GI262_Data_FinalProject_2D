@@ -66,6 +66,7 @@ public class Mushroom : Character, IAttack
     }
 
 
+    public MapGenerator mapGenerator;
     public void Attack()
     {
         List<GameObject> monstersToAttack = new List<GameObject>(nearbyNinja);
@@ -79,6 +80,10 @@ public class Mushroom : Character, IAttack
                 if (ninja.Health <= 0)
                 {
                     Destroy(ninja.gameObject);
+                    if (mapGenerator != null)
+                    {
+                        mapGenerator.PlaceExit();
+                    }
                 }
             }
         }

@@ -65,6 +65,7 @@ public class Skeleton : Character, IAttack
         }
     }
 
+    public MapGenerator mapGenerator;
 
     public void Attack()
     {
@@ -79,6 +80,10 @@ public class Skeleton : Character, IAttack
                 if (ninja.Health <= 0)
                 {
                     Destroy(ninja.gameObject);
+                    if (mapGenerator != null)
+                    {
+                        mapGenerator.PlaceExit();
+                    }
                 }
             }
         }

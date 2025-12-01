@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
+using UnityEngine.SceneManagement;
+using static EndGame;
 
 public class TimerEvent : MonoBehaviour
 {
@@ -40,6 +42,8 @@ public class TimerEvent : MonoBehaviour
 
             // หากต้องการให้จบหลังครั้งเดียว ให้ปิดสคริปต์นี้
             enabled = false;
+            GameResult.isWin = false;
+            SceneManager.LoadScene("EndGame");
         }
     }
 
