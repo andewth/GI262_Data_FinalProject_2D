@@ -45,7 +45,7 @@ public class Ninja : Character
         apple += count;
         Health += 20;
         // UpdateAppleTxt();
-        // UpdateHelthTxt();
+        UpdateHelthTxt();
         Debug.Log($"+ Keep Potion 1 [ Hp : {Health} ]");
     }
 
